@@ -7,7 +7,11 @@
 // string kan blive så sto-. > 16 tegn.- den ern�dt til at være å
 // paa heapen. 
 /*
-class string{
+.................................
+................................
+................................
+.
+   class string{
 	private:
 	char stackstore[16];	
 	char*   pstrA;
