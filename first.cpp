@@ -7,11 +7,7 @@
 // string kan blive så sto-. > 16 tegn.- den ern�dt til at være å
 // paa heapen. 
 /*
-.................................
-................................
-................................
-.
-   class string{
+class string{
 	private:
 	char stackstore[16];	
 	char*   pstrA;
@@ -37,15 +33,18 @@ string::string(const char * cchp)
 	std::cout<<cchp<<std::endl;
 	length = get_length(cchp);
 	std::cout<<" length : "<<length<<"\n";
-	char* temp = new char[length+1];//+1 er til '\0'
+	length++;
+	char* temp = new char[length];//+1 er til '\0'
 	pstrA=temp;
 	for(int i=0;i<length;i++)
 	{
-		*temp=*cchp; // problem omr�de farlig pointer c kode.
+		*temp=*cchp; // danger area!!! farlig pointer c kode.
 	
 	std::cout<<" i: "<<i<<" "<<*temp<<".";temp++;cchp++;
-	}	
-	*temp='\0'; // slut på streng;
+	}
+
+	//*temp='\0'   end of string.
+	*temp=*cchp;
 
 };
 
@@ -53,7 +52,7 @@ string::string( string& tocopy){
 	std::cout<<"\n cc jeg er kaldt\n";
 	
 	char *lcp=tocopy.get();	
-	std::cout<<lcp;	
+	std::cout<<"lcp :"<<lcp;	
 
 		
 	 
@@ -64,9 +63,9 @@ string::string( string& tocopy){
 	si=get_length(lcp);
 	std::cout<<"\n cc:  tocopy length: "<<si<<"\n";
 	
-			
-		this->pstrA = new char[si+1];
-		for(int i=0;i<si;i++){*(this->pstrA)=*(lcp);this->pstrA++;lcp++;}*this->pstrA='\0'; //strcpy
+		char* tempCc=new char[si+1];		
+		this->pstrA = tempCc;
+		for(int i=0;i<si;i++){*(tempCc)=*(lcp);tempCc++;lcp++;}*tempCc='\0'; //strcpy
 		std::cout<<"\n cc: this->pstrA"<<this->pstrA<<"\n";
 	}
 	else
@@ -82,7 +81,12 @@ string& string::operator=( string& astr){
 	if(this->pstrA==astr.pstrA)return *this;
 	else
 	{
+		if(this->pstrA!=NULL){
+		char* tmp= this->pstrA;
+
+
 	string& temp(astr);
+		
 		this->pstrA=temp.pstrA;
 		this->length=temp.length;
 
@@ -108,7 +112,8 @@ str_int string::get_length(const char* ccp)
 	const char* traverse_p=ccp;
 	while(*traverse_p !='\0' && foreverguard<100)
 	{
-		traverse_p++;sint++;foreverguard++; 
+	std::cout<<*traverse_p<<" trav p ";
+	traverse_p++;sint++;foreverguard++; 
 	}
 	std::cout<<std::endl;
 	return sint; 
@@ -123,16 +128,17 @@ std::ostream& operator<<(std::ostream& os,string& prnt)
 };
 
 
-
+void f();
 
 
 int main()
 {
-	if(1){string mystr("abc");std::cout<<" -> "<<mystr;  }
-		
-	//	string a(b);std::cout<<"\n a:"<<a<<"\n";}
-
+	if(1){string mystr("abc");/*std::cout<<" -> "<<mystr;*/  }
+	f();		
+	if(1){ string x("xy");string y=x;
 	std::cout<<"hello man"<<std::endl;
 	return 0;
 }
-
+void f(){
+	if(1){string b("cdef");	string a(b);std::cout<<"\n a:"<<a<<"\n";}
+}
