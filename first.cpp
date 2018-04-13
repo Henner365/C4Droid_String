@@ -21,6 +21,7 @@ class string{
 };
 */
 
+void f();
 
 char* string::get(){return pstrA;}
 
@@ -34,7 +35,7 @@ string::string(const char * cchp)
 	length = get_length(cchp);
 	std::cout<<" length : "<<length<<"\n";
 	length++;
-	char* temp = new char[length];//+1 er til '\0'
+	char* temp = new char[length+1];//+1 er til '\0'
 	pstrA=temp;
 	for(int i=0;i<length;i++)
 	{
@@ -83,7 +84,7 @@ string& string::operator=( string& astr){
 	{
 		if(this->pstrA!=NULL){
 		char* tmp= this->pstrA;
-
+	}
 
 	string& temp(astr);
 		
@@ -127,18 +128,18 @@ std::ostream& operator<<(std::ostream& os,string& prnt)
 	return os;
 };
 
+void f()
+{
+	if(1){string b("cdef");	string a(b);std::cout<<"\n a:"<<a<<"\n";}
+}
 
-void f();
 
 
 int main()
 {
 	if(1){string mystr("abc");/*std::cout<<" -> "<<mystr;*/  }
 	f();		
-	if(1){ string x("xy");string y=x;
+	if(0){ string x("xy");string y=x;
 	std::cout<<"hello man"<<std::endl;
-	return 0;
-}
-void f(){
-	if(1){string b("cdef");	string a(b);std::cout<<"\n a:"<<a<<"\n";}
+	return 0;}
 }
