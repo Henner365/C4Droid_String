@@ -1,6 +1,6 @@
 #include "first.h"
 
-
+// hand compile g++ -g -std=c++11 first.cpp -o first.exe
 
 
 
@@ -30,7 +30,7 @@ string::string():pstrA(NULL),length(80){};
 
 string::string(const char * cchp)
 {
-	std::cout<<"\n constructor:  jeg er kaldt\n";
+	std::cout<<"\n constructor:  im called   \n";
 	std::cout<<cchp<<std::endl;
 	length = get_length(cchp);
 	std::cout<<" length : "<<length<<"\n";
@@ -50,7 +50,7 @@ string::string(const char * cchp)
 };
 
 string::string( string& tocopy){
-	std::cout<<"\n cc jeg er kaldt\n";
+	std::cout<<"\n cc i am called \n";
 	
 	char *lcp=tocopy.get();	
 	std::cout<<"lcp :"<<lcp;	
@@ -59,7 +59,7 @@ string::string( string& tocopy){
 	 
 	if(lcp!=NULL)
 	{
-	std::cout<<std::endl<<"cc : tocopy er rigtigt ikke NULL men:  "<<lcp<<"\n";
+	std::cout<<std::endl<<"cc : tocopy is really not   NULL but:  "<<lcp<<"\n";
 	str_int si;
 	si=get_length(lcp);
 	std::cout<<"\n cc:  tocopy length: "<<si<<"\n";
@@ -78,7 +78,7 @@ string::string( string& tocopy){
 };
 
 string& string::operator=( string& astr){
-	std::cout<<"\nassignmentoperator jeg er kaldt\n";	
+	std::cout<<"\nassignmentoperator im called   \n";	
 	if(this->pstrA==astr.pstrA)return *this;
 	else
 	{
@@ -98,7 +98,7 @@ string& string::operator=( string& astr){
 string::~string(){
 	if(pstrA!=NULL){	
 	delete [] pstrA ;
-	std::cout<<"\ndestructor er kaldt\n";
+	std::cout<<"\ndestructor is called\n";
 	}
 
 
@@ -124,7 +124,7 @@ str_int string::get_length(const char* ccp)
 
 std::ostream& operator<<(std::ostream& os,string& prnt)
 {
-	os<<prnt.get()<<" hilsen fra friend ";
+	os<<prnt.get()<<" greetings from a   friend to string ";
 	return os;
 };
 
