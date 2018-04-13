@@ -4,7 +4,7 @@
 
 
 
-// string kan blive så sto-. > 16 tegn.- den ern�dt til at være å
+// string kan blive sÃ¥ sto-. > 16 tegn.- den ernÃdt til at vÃ¦re Ã¥
 // paa heapen. 
 /*
 class string{
@@ -35,11 +35,11 @@ string::string(const char * cchp)
 	length = get_length(cchp);
 	std::cout<<" length : "<<length<<"\n";
 	length++;
-	char* temp = new char[length+1];//+1 er til '\0'
+	char* temp = new char[length+1];//+1 is for '\0'
 	pstrA=temp;
-	for(int i=0;i<length;i++)
+	for(str_int i=0;i<length;i++)
 	{
-		*temp=*cchp; // danger area!!! farlig pointer c kode.
+		*temp=*cchp; // danger area!!! dangerous pointer c kode.
 	
 	std::cout<<" i: "<<i<<" "<<*temp<<".";temp++;cchp++;
 	}
@@ -66,8 +66,8 @@ string::string( string& tocopy){
 	
 		char* tempCc=new char[si+1];		
 		this->pstrA = tempCc;
-		for(int i=0;i<si;i++){*(tempCc)=*(lcp);tempCc++;lcp++;}*tempCc='\0'; //strcpy
-		std::cout<<"\n cc: this->pstrA"<<this->pstrA<<"\n";
+		for(str_int i=0;i<si;i++){*(tempCc)=*(lcp);tempCc++;lcp++;}*tempCc='\0'; //strcpy
+		std::cout<<"\n cc: this->pstrA = "<<this->pstrA<<"\n";
 	}
 	else
 	  {	
@@ -83,7 +83,7 @@ string& string::operator=( string& astr){
 	else
 	{
 		if(this->pstrA!=NULL){
-		char* tmp= this->pstrA;
+		//char* tmp= this->pstrA;
 	}
 
 	string& temp(astr);
@@ -137,7 +137,7 @@ void f()
 
 int main()
 {
-	if(1){string mystr("abc");/*std::cout<<" -> "<<mystr;*/  }
+	if(1){string mystr("abc");std::cout<<" -> "<<mystr;  }
 	f();		
 	if(0){ string x("xy");string y=x;
 	std::cout<<"hello man"<<std::endl;

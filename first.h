@@ -8,7 +8,7 @@
 typedef unsigned int str_int;
 
 
-// string kan blive så sto-. > 16 tegn.- den ern�dt til at være å
+// string can get easyly bigger than. > 16 chars.- then choose heap else stack
 // ************************************************************
 // paa heapen. 
 
