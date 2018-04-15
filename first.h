@@ -10,7 +10,7 @@ typedef unsigned int str_int;
 
 // string can get easyly bigger than. > 16 chars.- then choose heap else stack
 // ************************************************************
-// paa heapen. 
+// 
 
 class string{
 	//protected:
@@ -21,12 +21,12 @@ class string{
 	str_int length;
 	//int& ir;
 	public:
-	char* get();
+	const char* get();
 	~string ();
 	string();
 	string(const char * cchp);
-	string( string& tocopy);//copyconstructor
-	string& operator=( string& astr);//assignment operator
+	string(const string& tocopy);//copyconstructor
+	string& operator=(const string& astr);//assignment operator
 	str_int get_length(const char* ccp);
 
 };

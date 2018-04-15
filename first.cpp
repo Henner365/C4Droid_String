@@ -4,9 +4,10 @@
 
 
 
-// string kan blive sÃ¥ sto-. > 16 tegn.- den ernÃdt til at vÃ¦re Ã¥
-// paa heapen. 
-/*
+// string can get easyly bigger than. > 16 chars.- then choose heap else stack
+// ************************************************************
+//
+/* 
 class string{
 	private:
 	char stackstore[16];	
@@ -21,38 +22,43 @@ class string{
 };
 */
 
+
 void f();
 
-char* string::get(){return pstrA;}
+
+const char* string::get(){return pstrA;} // do not remove! used by friends!
 
 
 string::string():pstrA(NULL),length(80){};
 
+
 string::string(const char * cchp)
 {
-	std::cout<<"\n constructor:  im called   \n";
+	std::cout<<"\n constructor:  i'm called   \n";
 	std::cout<<cchp<<std::endl;
 	length = get_length(cchp);
 	std::cout<<" length : "<<length<<"\n";
-	length++;
+
 	char* temp = new char[length+1];//+1 is for '\0'
-	pstrA=temp;
+	pstrA=temp; // alert! Do not move this line.
+     
 	for(str_int i=0;i<length;i++)
 	{
 		*temp=*cchp; // danger area!!! dangerous pointer c kode.
 	
-	std::cout<<" i: "<<i<<" "<<*temp<<".";temp++;cchp++;
+	std::cout<<" i: "<<i<<" "<<*temp<<".\n";temp++;cchp++;
 	}
 
 	//*temp='\0'   end of string.
 	*temp=*cchp;
-
+   
 };
 
-string::string( string& tocopy){
-	std::cout<<"\n cc i am called \n";
+
+string::string(const string& tocopy){
+	std::cout<<"\n copy constructor i'm called \n";
 	
-	char *lcp=tocopy.get();	
+	const char *lcp=tocopy.pstrA;//.get();	
 	std::cout<<"lcp :"<<lcp;	
 
 		
@@ -77,22 +83,37 @@ string::string( string& tocopy){
 	
 };
 
-string& string::operator=( string& astr){
-	std::cout<<"\nassignmentoperator im called   \n";	
+
+string& string::operator=(const string& astr)
+{
+	std::cout<<"\n assignment operator i'm called   \n";	
 	if(this->pstrA==astr.pstrA)return *this;
 	else
 	{
 		if(this->pstrA!=NULL){
-		//char* tmp= this->pstrA;
-	}
-
-	string& temp(astr);
+            if(this->length!=astr.length)
+            {
+            const char* lacp = astr.pstrA;    
+            char * tmp;
+            tmp = this->pstrA;
+            delete [] tmp;
+            tmp = new char[astr.length+1];
+            this->pstrA=tmp;
+            str_int si;
+            si=get_length(lacp);
+            for(str_int i=0;i<si;i++){*(tmp)=*(lacp);tmp++;lacp++;}*tmp='\0'; //strcpy
+            }
+         }
+        else{ // if copyconstructor is not called automatic or this->pstrA is NULL.
+            const string& temp(astr);
 		
-		this->pstrA=temp.pstrA;
-		this->length=temp.length;
-
+            this->pstrA=temp.pstrA;
+            this->length=temp.length;
+            }
+        
+     }
 	return *this;
-	}
+	
 };
 
 string::~string(){
@@ -105,7 +126,6 @@ string::~string(){
 };
 
 
-
 str_int string::get_length(const char* ccp) 
 {
 	int foreverguard=0;
@@ -113,7 +133,7 @@ str_int string::get_length(const char* ccp)
 	const char* traverse_p=ccp;
 	while(*traverse_p !='\0' && foreverguard<100)
 	{
-	std::cout<<*traverse_p<<" trav p ";
+	std::cout<<" traverse the pointer "<<*traverse_p<<"\n";
 	traverse_p++;sint++;foreverguard++; 
 	}
 	std::cout<<std::endl;
@@ -124,22 +144,38 @@ str_int string::get_length(const char* ccp)
 
 std::ostream& operator<<(std::ostream& os,string& prnt)
 {
-	os<<prnt.get()<<" greetings from a   friend to string ";
+	os<<prnt.get()<<".  [greetings from a friend to string] ";
 	return os;
 };
 
+
 void f()
 {
-	if(1){string b("cdef");	string a(b);std::cout<<"\n a:"<<a<<"\n";}
+	if(1){
+    string b("cdef");	
+    string a(b);
+    std::cout<<"\n a:"<<a<<"\n";}
 }
-
 
 
 int main()
 {
-	if(1){string mystr("abc");std::cout<<" -> "<<mystr;  }
-	f();		
-	if(0){ string x("xy");string y=x;
-	std::cout<<"hello man"<<std::endl;
-	return 0;}
+	if(0){string mystr("abc");std::cout<<"\nmystr -> "<<mystr<<"\n";  }
+	if(0){f();}		
+	if(0){ 
+        string x("xyzvx");
+        string y=x;
+        std::cout<<"\n x and y: "<<y<<"\n";
+        string z("something else");
+        x=z;
+        std::cout<<"\n new x: "<<x<<"\n";
+    }
+    if(1){
+        string ny;
+        string gammel("new value");
+        ny=gammel;
+        std::cout<<"\n"<<ny;
+    }
+	std::cout<<"\nprogram ended witout obvious errors ..."<<std::endl;
+	return 0;
 }
